@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import CheckOut from './components/CheckOut/CheckOut';
+import Edit from './components/Edit/Edit';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
@@ -18,6 +20,8 @@ function App() {
         <Route path='/products' element={<Products />} />
         <Route path='/orders' element={<RequireAuth><Orders /></RequireAuth>} />
         <Route path='/upload' element={<RequireAuth><Upload /></RequireAuth>} />
+        <Route path='/checkout/:_id' element={<RequireAuth><CheckOut /></RequireAuth>} />
+        <Route path='/edit/:_id' element={<RequireAuth><Edit /></RequireAuth>} />
         <Route path='/login' element={<Login />} />
 
       </Routes>
