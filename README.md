@@ -126,3 +126,47 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
         })
 ```
+
+
+
+## Steps for diploy on firebase
+### Deploy from the start:
+- ```npm install -g firebase-tools```(one time in a computer)
+- ```firebase login```(one time in a computer)
+- ```firebase init```(one time for each project)
+  > - ? Are you ready to proceed? (Y/n)
+  > - (*) Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys
+  > - existing project
+  > - Select project
+  > - What do you want to use as your public directory? build
+  > - Configure as a single-page app (rewrite all urls to /index.html)? No
+  > - Set up automatic builds and deploys with GitHub? No
+- ```npm run build```
+- ```firebase deploy```
+
+### Deploy after every changes:
+- ```npm run build```
+- ```firebase deploy```
+
+
+
+## 🎯Deploy Server in heroku
+### One time for a computer.
+**➡️** [Sign up heroku ](https://signup.heroku.com/)
+
+**➡️** install heroku 64 bit from doc 
+
+**➡️** ` heroku login ` 
+
+### One time for each project.
+**➡️** `heroku create`
+### for every changes.
+**➡️** `git add .`
+
+**➡️** `git commit -m "messages"`
+
+**➡️** `git push`
+
+**➡️** `git push heroku main`
+
+**➡️** dashboard >settings>revel config vars> put the .env key and valu
