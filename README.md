@@ -40,3 +40,89 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
             res.send({ accessToken })
         })
 ```
+
+### 2nd step frontend
+
+```bash
+  if (user) {
+        const postToken = async () => {
+            const email = user?.email;
+            if (email) {
+                const { data } = await axios.post('http://localhost:5000/login', { email })
+                localStorage.setItem('accessToken', data.accessToken)
+            }
+        }
+        postToken()
+
+        navigate(from, { replace: true });
+    }
+```
+
+### step 3 : send authorization through headers
+
+```bash
+  useEffect(() => {
+        async function loadOrders() {
+            const email = user.email
+            try {
+                const { data } = await axios.get(`http://localhost:5000/orders?email=${email}`, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
+
+
+                setOrders(data)
+            }
+            catch (error) {
+                console.log(error.message);
+                if (error.response.status === 401 || error.response.status === 403) {
+                    signOut(auth)
+                    navigate('/login')
+                }
+            }
+        }
+        loadOrders()
+    }, [])
+```
+
+### 3rd step: make a function named verifyJWT on backed
+
+```bash
+  function verifyJWT(req, res, next) {
+   const authHeader = req.headers.authorization;
+   if (!authHeader) {
+
+       return res.status(401).send({ message: 'unauthorized access'
+       })
+   }
+       const token = authHeader.split(' ')[1]
+       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+        return res.status(403).send({ message: 'access forbidden' })
+    }
+    req.decoded = decoded
+    next()
+})
+}
+```
+
+### 4th step: verify when load data
+
+```bash
+  app.get('/orders', verifyJWT, async (req, res) => {
+            const decodedEmail = req.decoded.email
+            const email = req.query.email;
+
+            if (email === decodedEmail) {
+                const query = { email: email }
+                const cursor = orderCollection.find(query)
+                const orders = await cursor.toArray()
+                res.send(orders)
+            }
+            else {
+                res.status(403).send({ message: 'access forbidden' })
+            }
+
+        })
+```
