@@ -1,4 +1,6 @@
+import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
+
 import './App.css';
 import CheckOut from './components/CheckOut/CheckOut';
 import Edit from './components/Edit/Edit';
@@ -14,6 +16,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
@@ -25,6 +28,7 @@ function App() {
         <Route path='/login' element={<Login />} />
 
       </Routes>
+      <Toaster />
     </div>
   );
 }

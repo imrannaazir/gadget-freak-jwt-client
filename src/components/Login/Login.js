@@ -21,7 +21,7 @@ const Login = () => {
         const postToken = async () => {
             const email = user?.email;
             if (email) {
-                const { data } = await axios.post('http://localhost:5000/login', { email })
+                const { data } = await axios.post('https://young-cove-44489.herokuapp.com/login', { email })
                 localStorage.setItem('accessToken', data.accessToken)
             }
         }

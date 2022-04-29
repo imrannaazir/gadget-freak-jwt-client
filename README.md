@@ -48,7 +48,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
         const postToken = async () => {
             const email = user?.email;
             if (email) {
-                const { data } = await axios.post('http://localhost:5000/login', { email })
+                const { data } = await axios.post('https://young-cove-44489.herokuapp.com/login', { email })
                 localStorage.setItem('accessToken', data.accessToken)
             }
         }
@@ -65,7 +65,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
         async function loadOrders() {
             const email = user.email
             try {
-                const { data } = await axios.get(`http://localhost:5000/orders?email=${email}`, {
+                const { data } = await axios.get(`https://young-cove-44489.herokuapp.com/orders?email=${email}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }

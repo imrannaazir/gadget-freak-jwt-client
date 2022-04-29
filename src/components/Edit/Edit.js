@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
+
 
 const Edit = () => {
     const { _id } = useParams()
@@ -8,20 +10,26 @@ const Edit = () => {
 
     const handleEdit = async e => {
         e.preventDefault();
-        const proceed = window.confirm('Are you sure to upload product!')
-        if (proceed) {
-            const product = {
-                name: e.target.name.value,
-                url: e.target.url.value,
-                price: e.target.price.value,
-                description: e.target.description.value
-            };
+        try {
+            const proceed = window.confirm('Are you sure to upload product!')
+            if (proceed) {
+                const product = {
+                    name: e.target.name.value,
+                    url: e.target.url.value,
+                    price: e.target.price.value,
+                    description: e.target.description.value
+                };
 
-            console.log(product);
+                console.log(product);
 
-            await axios.put(`http://localhost:5000/products/${_id}`, product)
-            e.target.reset()
-            navigate('/products')
+                await axios.put(`https://young-cove-44489.herokuapp.com/products/${_id}`, product)
+                e.target.reset()
+                navigate('/products')
+            }
+        }
+        catch (err) {
+            console.log(err.message);
+            toast.error('Please fill all the fields😡')
         }
     }
 

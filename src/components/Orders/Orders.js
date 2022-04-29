@@ -16,7 +16,7 @@ const Orders = () => {
         async function loadOrders() {
             const email = user.email
             try {
-                const { data } = await axios.get(`http://localhost:5000/orders?email=${email}`, {
+                const { data } = await axios.get(`https://young-cove-44489.herokuapp.com/orders?email=${email}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -38,7 +38,7 @@ const Orders = () => {
 
     const handleDelete = _id => {
         async function deleteOrder() {
-            const { data } = await axios.delete(`http://localhost:5000/orders/${_id}`)
+            const { data } = await axios.delete(`https://young-cove-44489.herokuapp.com/orders/${_id}`)
             console.log(data);
         }
         deleteOrder()

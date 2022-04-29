@@ -15,7 +15,7 @@ const Upload = () => {
             };
             console.log(product);
 
-            const { data } = await axios.post('http://localhost:5000/products', product)
+            const { data } = await axios.post('https://young-cove-44489.herokuapp.com/products', product)
             e.target.reset()
         }
     }
