@@ -39,11 +39,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### 1st step backend
 
-app.post('/login', async (req, res) => {
-const email = req.body
-const accessToken = jwt.sign(email, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
-res.send({ accessToken })
-})
+`app.post('/login', async (req, res) => { const email = req.body const accessToken = jwt.sign(email, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' }); res.send({ accessToken }) })`
 
 2nd step frontend
 
