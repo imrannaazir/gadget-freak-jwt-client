@@ -1,21 +1,37 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../firebase-init';
 
 const Orders = () => {
     const [orders, setOrders] = useState([])
-
+    const navigate = useNavigate()
 
     const [user] = useAuthState(auth)
     useEffect(() => {
         async function loadOrders() {
             const email = user.email
-            const { data } = await axios.get(`http://localhost:5000/orders?email=${email}`)
+            try {
+                const { data } = await axios.get(`http://localhost:5000/orders?email=${email}`, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                })
 
-            setOrders(data)
+
+                setOrders(data)
+            }
+            catch (error) {
+                console.log(error.message);
+                if (error.response.status === 401 || error.response.status === 403) {
+                    signOut(auth)
+                    navigate('/login')
+                }
+            }
         }
         loadOrders()
     }, [])

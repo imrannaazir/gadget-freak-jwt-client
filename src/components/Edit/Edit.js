@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Edit = () => {
     const { _id } = useParams()
+    const navigate = useNavigate()
 
     const handleEdit = async e => {
         e.preventDefault();
@@ -15,10 +16,12 @@ const Edit = () => {
                 price: e.target.price.value,
                 description: e.target.description.value
             };
+
             console.log(product);
 
-            const { data } = await axios.put(`http://localhost:5000/products/${_id}`, product)
+            await axios.put(`http://localhost:5000/products/${_id}`, product)
             e.target.reset()
+            navigate('/products')
         }
     }
 
