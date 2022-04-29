@@ -147,3 +147,26 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 ### Deploy after every changes:
 - ```npm run build```
 - ```firebase deploy```
+
+
+
+## 🎯Deploy Server in heroku
+### One time for a computer.
+**➡️** [Sign up heroku ](https://signup.heroku.com/)
+
+**➡️** install heroku 64 bit from doc 
+
+**➡️** ` heroku login ` 
+
+### One time for each project.
+**➡️** `heroku create`
+### for every changes.
+**➡️** `git add .`
+
+**➡️** `git commit -m "messages"`
+
+**➡️** `git push`
+
+**➡️** `git push heroku main`
+
+**➡️** dashboard >settings>revel config vars> put the .env key and valu
